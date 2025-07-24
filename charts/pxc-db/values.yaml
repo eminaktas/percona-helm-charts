@@ -128,6 +128,7 @@ pxc:
   sidecarResources:
     requests: {}
     limits: {}
+  extraPVCs: []
   nodeSelector: {}
   #  disktype: ssd
   # topologySpreadConstraints:
@@ -729,7 +730,7 @@ backup:
 #         deleteFromStorage: true
 #       storageName: s3-us-west
 
-secrets:
+pxcSecrets:
   ## You should be overriding these with your own or specify name for clusterSecretName.
   # passwords:
   #   root: insecure-root-password
@@ -739,6 +740,8 @@ secrets:
   #   pmmserver: insecure-pmmserver-password
   #   # If pmmserverkey is set in that case pmmserver pass will not be included
   #   # pmmserverkey: set-pmmserver-api-key
+  #   # If pmmservertoken is set in that case pmmserver and pmmserverkey will not be included
+  #   # pmmservertoken: set-pmmserver-sa-token
   #   operator: insecure-operator-password
   #   replication: insecure-replication-password
   ## If you are using `cert-manager` you can skip this next section.

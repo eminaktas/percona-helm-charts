@@ -4,6 +4,10 @@
 
 replicaCount: 1
 
+crds:
+  enabled: true
+  keep: true
+
 operatorImageRepository: percona/percona-xtradb-cluster-operator
 imagePullPolicy: IfNotPresent
 image: ""
@@ -55,6 +59,8 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+extraLabels: {}
 
 podAnnotations: {}
 

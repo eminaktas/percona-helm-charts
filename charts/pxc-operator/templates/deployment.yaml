@@ -28,6 +28,9 @@ spec:
         app.kubernetes.io/name: {{ include "pxc-operator.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
         app.kubernetes.io/part-of: {{ include "pxc-operator.name" . }}
+      {{- with .Values.extraLabels }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
     spec:
       serviceAccountName: {{ include "pxc-operator.fullname" . }}
     {{- with .Values.imagePullSecrets }}

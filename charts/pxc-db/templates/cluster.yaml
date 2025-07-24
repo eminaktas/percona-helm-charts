@@ -28,24 +28,24 @@ spec:
   secretsName: {{ include "pxc-database.fullname" . }}-secrets
   {{- end }}
   {{- if .Values.tls.enabled }}
-  {{- if hasKey .Values.secrets.tls "cluster" }}
-  sslSecretName: {{ .Values.secrets.tls.cluster }}
+  {{- if hasKey .Values.pxcSecrets.tls "cluster" }}
+  sslSecretName: {{ .Values.pxcSecrets.tls.cluster }}
   {{- else }}
   sslSecretName: {{ include "pxc-database.fullname" . }}-ssl
   {{- end }}
-  {{- if hasKey .Values.secrets.tls "internal" }}
-  sslInternalSecretName: {{ .Values.secrets.tls.internal }}
+  {{- if hasKey .Values.pxcSecrets.tls "internal" }}
+  sslInternalSecretName: {{ .Values.pxcSecrets.tls.internal }}
   {{- else }}
   sslInternalSecretName: {{ include "pxc-database.fullname" . }}-ssl-internal
   {{- end }}
   {{- end }}
-  {{- if hasKey .Values.secrets "vault" }}
-  vaultSecretName: {{ .Values.secrets.vault }}
+  {{- if hasKey .Values.pxcSecrets "vault" }}
+  vaultSecretName: {{ .Values.pxcSecrets.vault }}
   {{- else }}
   vaultSecretName: {{ include "pxc-database.fullname" . }}-vault
   {{- end }}
-  {{- if hasKey .Values.secrets "logCollector" }}
-  logCollectorSecretName: {{ .Values.secrets.logCollector }}
+  {{- if hasKey .Values.pxcSecrets "logCollector" }}
+  logCollectorSecretName: {{ .Values.pxcSecrets.logCollector }}
   {{- else }}
   logCollectorSecretName: {{ include "pxc-database.fullname" . }}-log-collector
   {{- end }}
@@ -158,6 +158,8 @@ spec:
 {{ tpl ($pxc.sidecarResources.requests | toYaml) $ | indent 8 }}
       limits:
 {{ tpl ($pxc.sidecarResources.limits | toYaml) $ | indent 8 }}
+    extraPVCs:
+{{ $pxc.extraPVCs | toYaml | indent 6 }}
     nodeSelector:
 {{ $pxc.nodeSelector | toYaml | indent 6 }}
     {{- if $pxc.topologySpreadConstraints }}
